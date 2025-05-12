@@ -4,7 +4,7 @@
 
 ## Endpoint
 
-<div class="api-endpoint">https://capstone-api-navy.vercel.app/</div>
+<div class="api-endpoint">https://capstone-api-peach.vercel.app</div>
 
 ### Register
 

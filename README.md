@@ -4,7 +4,7 @@ This is the API for the Capstone project. It provides endpoints for managing use
 
 ## Documentation
 
-The API documentation is available at [http://13.215.253.107:5000/v1](http://13.215.253.107:5000/v1).
+The API documentation is available at [https://capstone-api-peach.vercel.app/docs](https://capstone-api-peach.vercel.app/).
 
 To run the documentation locally:
 
@@ -65,31 +65,13 @@ npm install cloudinary
 4. Add your Cloudinary credentials to your environment variables:
 
 In your `.env` file:
+
 ```
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-In your `vercel.json` file:
-```json
-"env": {
-  "VERCEL": "1",
-  "NODE_ENV": "production",
-  "JWT_SECRET": "your_jwt_secret",
-  "MONGODB_URI": "your_mongodb_uri",
-  "MONGODB_DB_NAME": "your_db_name",
-  "CLOUDINARY_CLOUD_NAME": "your_cloud_name",
-  "CLOUDINARY_API_KEY": "your_api_key",
-  "CLOUDINARY_API_SECRET": "your_api_secret"
-}
-```
-
-5. Deploy to Vercel:
-
-```bash
-vercel --prod
-```
 
 ### Using Cloudinary in All Environments
 
@@ -98,11 +80,13 @@ The application is now configured to use Cloudinary for file storage in all envi
 To use Cloudinary:
 
 1. Make sure you have installed the Cloudinary package:
+
 ```bash
 npm install cloudinary
 ```
 
 2. Ensure your environment variables are set up correctly in `.env`:
+
 ```
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
