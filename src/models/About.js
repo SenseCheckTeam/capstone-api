@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const tentangAplikasiSchema = new Schema({
+const aboutSchema = new Schema({
   id: {
     type: String,
     required: true,
@@ -11,7 +11,19 @@ const tentangAplikasiSchema = new Schema({
     type: String,
     required: true,
   },
-  content: {
+  description: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  textButton: {
+    type: String,
+    required: true,
+  },
+  buttonUrl: {
     type: String,
     required: true,
   },
@@ -25,6 +37,6 @@ const tentangAplikasiSchema = new Schema({
   },
 });
 
-const TentangAplikasi = mongoose.model('TentangAplikasi', tentangAplikasiSchema);
+const About = mongoose.model('About', aboutSchema);
 
-module.exports = TentangAplikasi;
+module.exports = About;

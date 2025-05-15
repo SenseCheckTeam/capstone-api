@@ -3,7 +3,7 @@ const adminRoutes = require('./adminRoutes');
 const homeRoutes = require('./homeRoutes');
 const sliderRoutes = require('./sliderRoutes');
 const pancaIndraRoutes = require('./pancaIndraRoutes');
-const tentangAplikasiRoutes = require('./tentangAplikasiRoutes');
+const aboutRoutes = require('./aboutRoutes');
 const staticRoutes = require('./staticRoutes');
 
 // Combine all routes
@@ -13,7 +13,7 @@ const routes = [
     ...homeRoutes,
     ...sliderRoutes,
     ...pancaIndraRoutes,
-    ...tentangAplikasiRoutes,
+    ...aboutRoutes,
     ...staticRoutes
 ];
 
