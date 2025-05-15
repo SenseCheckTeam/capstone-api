@@ -1,4 +1,13 @@
-const { Slider, PancaIndra, About } = require('../models');
+const {
+    Slider,
+    PancaIndra,
+    About,
+    Peraba,
+    Penciuman,
+    Pendengaran,
+    Penglihatan,
+    Pengecapan
+} = require('../models');
 
 /**
  * Get home page data
@@ -6,7 +15,32 @@ const { Slider, PancaIndra, About } = require('../models');
 const getHomeHandler = async (request, h) => {
     try {
         const sliders = await Slider.find({});
-        const pancaIndras = await PancaIndra.find({});
+
+        // Fetch main panca indra data
+        const pancaIndraData = await PancaIndra.findOne({}).lean() || {
+            id: "panca-indra-001",
+            title: "Panca Indra",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Fetch data for each sense
+        const peraba = await Peraba.findOne({}).lean() || null;
+        const penciuman = await Penciuman.findOne({}).lean() || null;
+        const pendengaran = await Pendengaran.findOne({}).lean() || null;
+        const penglihatan = await Penglihatan.findOne({}).lean() || null;
+        const pengecapan = await Pengecapan.findOne({}).lean() || null;
+
+        // Combine all data
+        const pancaIndra = {
+            ...pancaIndraData,
+            peraba,
+            penciuman,
+            pendengaran,
+            penglihatan,
+            pengecapan
+        };
+
         const abouts = await About.find({});
 
         return h.response({
@@ -14,8 +48,8 @@ const getHomeHandler = async (request, h) => {
             message: 'success',
             data: {
                 sliders,
-                pancaIndras,
-                abouts
+                abouts,
+                pancaIndra
             }
         }).code(200);
     } catch (error) {
