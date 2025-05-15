@@ -1,27 +1,27 @@
 const {
-    createArticleHandler,
-    updateArticleHandler,
-    deleteArticleHandler,
-    getArticlesHandler,
-    getArticleByIdHandler
-} = require('../controllers/articleController');
+    createAboutHandler,
+    updateAboutHandler,
+    deleteAboutHandler,
+    getAboutsHandler,
+    getAboutByIdHandler
+} = require('../controllers/aboutController');
 
-const articleRoutes = [
+const aboutRoutes = [
     // Public routes
     {
         method: "GET",
-        path: "/articles",
-        handler: getArticlesHandler,
+        path: "/about",
+        handler: getAboutsHandler,
     },
     {
         method: "GET",
-        path: "/articles/{id}",
-        handler: getArticleByIdHandler,
+        path: "/about/{id}",
+        handler: getAboutByIdHandler,
     },
     // Admin routes
     {
         method: "POST",
-        path: "/admin/articles",
+        path: "/admin/about",
         options: {
             payload: {
                 allow: ["multipart/form-data"],
@@ -32,11 +32,11 @@ const articleRoutes = [
                 maxBytes: 2000000,
             }
         },
-        handler: createArticleHandler,
+        handler: createAboutHandler,
     },
     {
         method: "PUT",
-        path: "/admin/articles/{id}",
+        path: "/admin/about/{id}",
         options: {
             payload: {
                 allow: ["multipart/form-data"],
@@ -47,13 +47,13 @@ const articleRoutes = [
                 maxBytes: 2000000,
             }
         },
-        handler: updateArticleHandler,
+        handler: updateAboutHandler,
     },
     {
         method: "DELETE",
-        path: "/admin/articles/{id}",
-        handler: deleteArticleHandler,
+        path: "/admin/about/{id}",
+        handler: deleteAboutHandler,
     }
 ];
 
-module.exports = articleRoutes;
+module.exports = aboutRoutes;

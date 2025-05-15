@@ -1,4 +1,15 @@
-const { Slider, Article, PancaIndra, TentangAplikasi } = require('../models');
+const {
+    Slider,
+    PancaIndra,
+    About,
+    Peraba,
+    Penciuman,
+    Pendengaran,
+    Penglihatan,
+    Pengecapan,
+    PartnerGroup,
+    Partner
+} = require('../models');
 
 /**
  * Get home page data
@@ -6,18 +17,59 @@ const { Slider, Article, PancaIndra, TentangAplikasi } = require('../models');
 const getHomeHandler = async (request, h) => {
     try {
         const sliders = await Slider.find({});
-        const articles = await Article.find({});
-        const pancaIndras = await PancaIndra.find({});
-        const tentangAplikasis = await TentangAplikasi.find({});
+
+        // Fetch main panca indra data
+        const pancaIndraData = await PancaIndra.findOne({}).lean() || {
+            id: "panca-indra-001",
+            title: "Panca Indra",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Fetch data for each sense
+        const peraba = await Peraba.findOne({}).lean() || null;
+        const penciuman = await Penciuman.findOne({}).lean() || null;
+        const pendengaran = await Pendengaran.findOne({}).lean() || null;
+        const penglihatan = await Penglihatan.findOne({}).lean() || null;
+        const pengecapan = await Pengecapan.findOne({}).lean() || null;
+
+        // Combine all data
+        const pancaIndra = {
+            ...pancaIndraData,
+            peraba,
+            penciuman,
+            pendengaran,
+            penglihatan,
+            pengecapan
+        };
+
+        const abouts = await About.find({});
+
+        // Fetch main partners data
+        const partnerGroupData = await PartnerGroup.findOne({}).lean() || {
+            id: "partners-001",
+            title: "Partners",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Fetch all partner entries
+        const partnerEntries = await Partner.find({}).lean() || [];
+
+        // Combine all partners data
+        const partners = {
+            ...partnerGroupData,
+            partner: partnerEntries
+        };
 
         return h.response({
             error: false,
             message: 'success',
             data: {
                 sliders,
-                articles,
-                pancaIndras,
-                tentangAplikasis
+                abouts,
+                pancaIndra,
+                partners
             }
         }).code(200);
     } catch (error) {

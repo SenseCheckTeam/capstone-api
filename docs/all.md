@@ -1,6 +1,6 @@
 # Capstone API
 
-> **API untuk mengelola konten website, termasuk slider, artikel, panca indra, dan tentang aplikasi, dengan autentikasi pengguna dan admin.**
+> **API untuk mengelola konten website, termasuk slider, panca indra, dan about, dengan autentikasi pengguna dan admin.**
 
 ## Endpoint
 
@@ -86,8 +86,6 @@
   "data": [
     {
       "id": "slider-id",
-      "title": "Slider Title",
-      "description": "Slider Description",
       "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
       "createdAt": "2023-01-01T00:00:00.000Z",
       "updatedAt": "2023-01-01T00:00:00.000Z"
@@ -112,8 +110,6 @@
   "message": "success",
   "data": {
     "id": "slider-id",
-    "title": "Slider Title",
-    "description": "Slider Description",
     "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
@@ -131,8 +127,6 @@
   * Content-Type: multipart/form-data
   * Authorization: Bearer `<token>`
 * Request Body
-  * `title` as `string`
-  * `description` as `string`
   * `photo` as `file`, must be a valid image file (JPG, JPEG, or PNG)
 * Response
 
@@ -156,8 +150,6 @@
   * Content-Type: multipart/form-data
   * Authorization: Bearer `<token>`
 * Request Body
-  * `title` as `string`
-  * `description` as `string`
   * `photo` as `file`, optional, must be a valid image file (JPG, JPEG, or PNG)
 * Response
 
@@ -185,119 +177,7 @@
 }
 ```
 
-### Get All Articles
 
-* URL
-  * `/articles`
-* Method
-  * GET
-* Response
-
-```json
-{
-  "error": false,
-  "message": "success",
-  "data": [
-    {
-      "id": "article-id",
-      "title": "Article Title",
-      "content": "Article Content",
-      "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
-      "createdAt": "2023-01-01T00:00:00.000Z",
-      "updatedAt": "2023-01-01T00:00:00.000Z"
-    }
-  ]
-}
-```
-
-> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
-
-### Get Article by ID
-
-* URL
-  * `/articles/:id`
-* Method
-  * GET
-* Response
-
-```json
-{
-  "error": false,
-  "message": "success",
-  "data": {
-    "id": "article-id",
-    "title": "Article Title",
-    "content": "Article Content",
-    "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
-    "createdAt": "2023-01-01T00:00:00.000Z",
-    "updatedAt": "2023-01-01T00:00:00.000Z"
-  }
-}
-```
-
-### Create Article (Admin Only)
-
-* URL
-  * `/admin/articles`
-* Method
-  * POST
-* Headers
-  * Content-Type: multipart/form-data
-  * Authorization: Bearer `<token>`
-* Request Body
-  * `title` as `string`
-  * `content` as `string`
-  * `photo` as `file`, must be a valid image file (JPG, JPEG, or PNG)
-* Response
-
-```json
-{
-  "error": false,
-  "message": "Artikel berhasil ditambahkan",
-  "data": {
-    "articleId": "article-id"
-  }
-}
-```
-
-### Update Article (Admin Only)
-
-* URL
-  * `/admin/articles/:id`
-* Method
-  * PUT
-* Headers
-  * Content-Type: multipart/form-data
-  * Authorization: Bearer `<token>`
-* Request Body
-  * `title` as `string`
-  * `content` as `string`
-  * `photo` as `file`, optional, must be a valid image file (JPG, JPEG, or PNG)
-* Response
-
-```json
-{
-  "error": false,
-  "message": "Artikel berhasil diperbarui"
-}
-```
-
-### Delete Article (Admin Only)
-
-* URL
-  * `/admin/articles/:id`
-* Method
-  * DELETE
-* Headers
-  * Authorization: Bearer `<token>`
-* Response
-
-```json
-{
-  "error": false,
-  "message": "Artikel berhasil dihapus"
-}
-```
 
 ### Get All Panca Indra
 
@@ -413,10 +293,10 @@
 }
 ```
 
-### Get All Tentang Aplikasi
+### Get All About
 
 * URL
-  * `/tentang-aplikasi`
+  * `/about`
 * Method
   * GET
 * Response
@@ -427,9 +307,12 @@
   "message": "success",
   "data": [
     {
-      "id": "tentang-aplikasi-id",
-      "title": "Tentang Aplikasi Title",
-      "content": "Tentang Aplikasi Content",
+      "id": "about-id",
+      "title": "About Title",
+      "description": "About Description",
+      "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
+      "textButton": "Learn More",
+      "buttonUrl": "https://example.com",
       "createdAt": "2023-01-01T00:00:00.000Z",
       "updatedAt": "2023-01-01T00:00:00.000Z"
     }
@@ -437,10 +320,12 @@
 }
 ```
 
-### Get Tentang Aplikasi by ID
+> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
+
+### Get About by ID
 
 * URL
-  * `/tentang-aplikasi/:id`
+  * `/about/:id`
 * Method
   * GET
 * Response
@@ -450,64 +335,73 @@
   "error": false,
   "message": "success",
   "data": {
-    "id": "tentang-aplikasi-id",
-    "title": "Tentang Aplikasi Title",
-    "content": "Tentang Aplikasi Content",
+    "id": "about-id",
+    "title": "About Title",
+    "description": "About Description",
+    "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
+    "textButton": "Learn More",
+    "buttonUrl": "https://example.com",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   }
 }
 ```
 
-### Create Tentang Aplikasi (Admin Only)
+### Create About (Admin Only)
 
 * URL
-  * `/admin/tentang-aplikasi`
+  * `/admin/about`
 * Method
   * POST
 * Headers
-  * Content-Type: application/json
+  * Content-Type: multipart/form-data
   * Authorization: Bearer `<token>`
 * Request Body
   * `title` as `string`
-  * `content` as `string`
+  * `description` as `string`
+  * `photo` as `file`, must be a valid image file (JPG, JPEG, or PNG)
+  * `textButton` as `string`
+  * `buttonUrl` as `string`
 * Response
 
 ```json
 {
   "error": false,
-  "message": "Tentang Aplikasi berhasil ditambahkan",
+  "message": "About berhasil ditambahkan",
   "data": {
-    "tentangAplikasiId": "tentang-aplikasi-id"
+    "aboutId": "about-id"
   }
 }
 ```
 
-### Update Tentang Aplikasi (Admin Only)
+### Update About (Admin Only)
 
 * URL
-  * `/admin/tentang-aplikasi/:id`
+  * `/admin/about/:id`
 * Method
   * PUT
 * Headers
-  * Content-Type: application/json
+  * Content-Type: multipart/form-data
   * Authorization: Bearer `<token>`
 * Request Body
   * `title` as `string`
-  * `content` as `string`
+  * `description` as `string`
+  * `photo` as `file`, optional, must be a valid image file (JPG, JPEG, or PNG)
+  * `textButton` as `string`
+  * `buttonUrl` as `string`
 * Response
 
 ```json
 {
   "error": false,
-  "message": "Tentang Aplikasi berhasil diperbarui"
+  "message": "About berhasil diperbarui"
 }
 ```
 
-### Delete Tentang Aplikasi (Admin Only)
+### Delete About (Admin Only)
 
 * URL
-  * `/admin/tentang-aplikasi/:id`
+  * `/admin/about/:id`
 * Method
   * DELETE
 * Headers
@@ -517,7 +411,7 @@
 ```json
 {
   "error": false,
-  "message": "Tentang Aplikasi berhasil dihapus"
+  "message": "About berhasil dihapus"
 }
 ```
 
@@ -539,7 +433,7 @@
 * Method
   * GET
 * Response
-  * Mengembalikan semua data dari slider, artikel, panca indra, dan tentang aplikasi dalam satu respons.
+  * Mengembalikan semua data dari slider, panca indra, dan about dalam satu respons.
 
 ```json
 {
@@ -547,9 +441,8 @@
   "message": "success",
   "data": {
     "sliders": [...],
-    "articles": [...],
     "pancaIndras": [...],
-    "tentangAplikasis": [...]
+    "abouts": [...]
   }
 }
 ```

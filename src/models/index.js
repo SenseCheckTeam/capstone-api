@@ -1,15 +1,27 @@
 const User = require('./User');
 const Admin = require('./Admin');
 const Slider = require('./Slider');
-const Article = require('./Article');
 const PancaIndra = require('./PancaIndra');
-const TentangAplikasi = require('./TentangAplikasi');
+const About = require('./About');
+const Peraba = require('./Peraba');
+const Penciuman = require('./Penciuman');
+const Pendengaran = require('./Pendengaran');
+const Penglihatan = require('./Penglihatan');
+const Pengecapan = require('./Pengecapan');
+const PartnerGroup = require('./PartnerGroup');
+const Partner = require('./Partner');
 
 module.exports = {
   User,
   Admin,
   Slider,
-  Article,
   PancaIndra,
-  TentangAplikasi,
+  About,
+  Peraba,
+  Penciuman,
+  Pendengaran,
+  Penglihatan,
+  Pengecapan,
+  PartnerGroup,
+  Partner,
 };

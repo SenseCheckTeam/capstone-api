@@ -1,16 +1,17 @@
 const { nanoid } = require("nanoid");
 const path = require('path');
-const { Slider } = require('../models');
+const { About } = require('../models');
 const { verifyAdmin } = require('../middleware/auth');
 const { saveFile, deleteFile } = require('../utils/fileHandler');
 
 /**
- * Create a new slider
+ * Create a new about
  */
-const createSliderHandler = async (request, h) => {
+const createAboutHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
+        const { title, description, textButton, buttonUrl } = request.payload;
         const photo = request.payload.photo;
 
         if (!photo) {
@@ -38,17 +39,21 @@ const createSliderHandler = async (request, h) => {
         const createdAt = new Date().toISOString();
         const updatedAt = createdAt;
 
-        await Slider.create({
+        await About.create({
             id,
+            title,
+            description,
             imageUrl,
+            textButton,
+            buttonUrl,
             createdAt,
             updatedAt,
         });
 
         return h.response({
             error: false,
-            message: 'Slider berhasil ditambahkan',
-            data: { sliderId: id }
+            message: 'About berhasil ditambahkan',
+            data: { aboutId: id }
         }).code(201);
     } catch (error) {
         return h.response({
@@ -59,24 +64,25 @@ const createSliderHandler = async (request, h) => {
 };
 
 /**
- * Update an existing slider
+ * Update an existing about
  */
-const updateSliderHandler = async (request, h) => {
+const updateAboutHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
         const { id } = request.params;
+        const { title, description, textButton, buttonUrl } = request.payload;
         const photo = request.payload.photo;
 
-        const slider = await Slider.findOne({ id });
-        if (!slider) {
+        const about = await About.findOne({ id });
+        if (!about) {
             return h.response({
                 error: true,
-                message: 'Slider tidak ditemukan'
+                message: 'About tidak ditemukan'
             }).code(404);
         }
 
-        let imageUrl = slider.imageUrl;
+        let imageUrl = about.imageUrl;
 
         if (photo) {
             const originalFileName = photo.hapi ? photo.hapi.filename : photo.filename;
@@ -92,24 +98,28 @@ const updateSliderHandler = async (request, h) => {
             }
 
             // Hapus file lama
-            await deleteFile(slider.imageUrl);
+            await deleteFile(about.imageUrl);
 
             imageUrl = await saveFile(photo, filename);
         }
 
         const updatedAt = new Date().toISOString();
 
-        await Slider.updateOne(
+        await About.updateOne(
             { id },
             {
+                title,
+                description,
                 imageUrl,
+                textButton,
+                buttonUrl,
                 updatedAt,
             }
         );
 
         return h.response({
             error: false,
-            message: 'Slider berhasil diperbarui'
+            message: 'About berhasil diperbarui'
         }).code(200);
     } catch (error) {
         return h.response({
@@ -120,30 +130,30 @@ const updateSliderHandler = async (request, h) => {
 };
 
 /**
- * Delete a slider
+ * Delete an about
  */
-const deleteSliderHandler = async (request, h) => {
+const deleteAboutHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
         const { id } = request.params;
-        const slider = await Slider.findOne({ id });
+        const about = await About.findOne({ id });
 
-        if (!slider) {
+        if (!about) {
             return h.response({
                 error: true,
-                message: 'Slider tidak ditemukan'
+                message: 'About tidak ditemukan'
             }).code(404);
         }
 
         // Hapus file gambar
-        await deleteFile(slider.imageUrl);
+        await deleteFile(about.imageUrl);
 
-        await Slider.deleteOne({ id });
+        await About.deleteOne({ id });
 
         return h.response({
             error: false,
-            message: 'Slider berhasil dihapus'
+            message: 'About berhasil dihapus'
         }).code(200);
     } catch (error) {
         return h.response({
@@ -154,18 +164,18 @@ const deleteSliderHandler = async (request, h) => {
 };
 
 /**
- * Get all sliders
+ * Get all abouts
  */
-const getSlidersHandler = async (request, h) => {
+const getAboutsHandler = async (request, h) => {
     try {
-        const sliders = await Slider.find({});
+        const abouts = await About.find({});
         return h.response({
             error: false,
             message: 'success',
-            data: sliders
+            data: abouts
         }).code(200);
     } catch (error) {
-        console.error('Error getting sliders:', error);
+        console.error('Error getting abouts:', error);
         return h.response({
             error: true,
             message: 'Terjadi kesalahan pada server'
@@ -174,27 +184,27 @@ const getSlidersHandler = async (request, h) => {
 };
 
 /**
- * Get a slider by ID
+ * Get an about by ID
  */
-const getSliderByIdHandler = async (request, h) => {
+const getAboutByIdHandler = async (request, h) => {
     try {
         const { id } = request.params;
-        const slider = await Slider.findOne({ id });
+        const about = await About.findOne({ id });
 
-        if (!slider) {
+        if (!about) {
             return h.response({
                 error: true,
-                message: 'Slider tidak ditemukan'
+                message: 'About tidak ditemukan'
             }).code(404);
         }
 
         return h.response({
             error: false,
             message: 'success',
-            data: slider
+            data: about
         }).code(200);
     } catch (error) {
-        console.error('Error getting slider by id:', error);
+        console.error('Error getting about by id:', error);
         return h.response({
             error: true,
             message: 'Terjadi kesalahan pada server'
@@ -203,9 +213,9 @@ const getSliderByIdHandler = async (request, h) => {
 };
 
 module.exports = {
-    createSliderHandler,
-    updateSliderHandler,
-    deleteSliderHandler,
-    getSlidersHandler,
-    getSliderByIdHandler
+    createAboutHandler,
+    updateAboutHandler,
+    deleteAboutHandler,
+    getAboutsHandler,
+    getAboutByIdHandler
 };

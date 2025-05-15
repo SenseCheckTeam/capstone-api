@@ -24,12 +24,8 @@ const pancaIndraRoutes = [
         path: "/admin/panca-indra",
         options: {
             payload: {
-                allow: ["multipart/form-data"],
+                allow: ["application/json"],
                 parse: true,
-                multipart: {
-                    output: "file",
-                },
-                maxBytes: 2000000,
             },
         },
         handler: createPancaIndraHandler,
@@ -39,12 +35,8 @@ const pancaIndraRoutes = [
         path: "/admin/panca-indra/{id}",
         options: {
             payload: {
-                allow: ["multipart/form-data"],
+                allow: ["application/json"],
                 parse: true,
-                multipart: {
-                    output: "file",
-                },
-                maxBytes: 2000000,
             },
         },
         handler: updatePancaIndraHandler,

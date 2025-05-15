@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const pancaIndraSchema = new Schema({
+const partnerGroupSchema = new Schema({
   id: {
     type: String,
     required: true,
@@ -21,6 +21,6 @@ const pancaIndraSchema = new Schema({
   },
 });
 
-const PancaIndra = mongoose.model('PancaIndra', pancaIndraSchema);
+const PartnerGroup = mongoose.model('PartnerGroup', partnerGroupSchema);
 
-module.exports = PancaIndra;
+module.exports = PartnerGroup;

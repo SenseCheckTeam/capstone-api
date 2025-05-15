@@ -1,6 +1,6 @@
 # Capstone API
 
-This is the API for the Capstone project. It provides endpoints for managing users, sliders, and articles.
+This is the API for the Capstone project. It provides endpoints for managing users, sliders, panca indra, and about.
 
 ## Documentation
 
@@ -21,16 +21,13 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 - `/admin` - Log in as an admin
 - `/sliders` - Get all sliders
 - `/sliders/{id}` - Get a slider by ID
-- `/articles` - Get all articles
-- `/articles/{id}` - Get an article by ID
 - `/panca-indra` - Get all panca indra items
 - `/panca-indra/{id}` - Get a panca indra item by ID
-- `/tentang-aplikasi` - Get all tentang aplikasi items
-- `/tentang-aplikasi/{id}` - Get a tentang aplikasi item by ID
+- `/about` - Get all about items
+- `/about/{id}` - Get an about item by ID
 - `/admin/sliders` - Create, update, and delete sliders (admin only)
-- `/admin/articles` - Create, update, and delete articles (admin only)
 - `/admin/panca-indra` - Create, update, and delete panca indra items (admin only)
-- `/admin/tentang-aplikasi` - Create, update, and delete tentang aplikasi items (admin only)
+- `/admin/about` - Create, update, and delete about items (admin only)
 
 For more details, see the [API documentation](http://13.215.253.107:5000/v1).
 

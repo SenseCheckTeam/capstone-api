@@ -1,8 +1,13 @@
 const { nanoid } = require("nanoid");
-const path = require('path');
-const { PancaIndra } = require('../models');
+const {
+    PancaIndra,
+    Peraba,
+    Penciuman,
+    Pendengaran,
+    Penglihatan,
+    Pengecapan
+} = require('../models');
 const { verifyAdmin } = require('../middleware/auth');
-const { saveFile, deleteFile } = require('../utils/fileHandler');
 
 /**
  * Create a new panca indra
@@ -11,29 +16,7 @@ const createPancaIndraHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
-        const { title, description } = request.payload;
-        const photo = request.payload.photo;
-
-        if (!photo) {
-            return h.response({
-                error: true,
-                message: 'Gambar harus diunggah'
-            }).code(400);
-        }
-
-        const originalFileName = photo.hapi ? photo.hapi.filename : photo.filename;
-        const filename = `${Date.now()}-${originalFileName}`;
-        const allowedExtensions = ['.jpg', '.jpeg', '.png'];
-        const fileExt = path.extname(originalFileName).toLowerCase();
-
-        if (!allowedExtensions.includes(fileExt)) {
-            return h.response({
-                error: true,
-                message: 'Format file tidak valid. Gunakan JPG, JPEG, atau PNG'
-            }).code(400);
-        }
-
-        const imageUrl = await saveFile(photo, filename);
+        const { title } = request.payload;
 
         const id = nanoid(16);
         const createdAt = new Date().toISOString();
@@ -42,8 +25,6 @@ const createPancaIndraHandler = async (request, h) => {
         await PancaIndra.create({
             id,
             title,
-            description,
-            imageUrl,
             createdAt,
             updatedAt,
         });
@@ -69,8 +50,7 @@ const updatePancaIndraHandler = async (request, h) => {
         verifyAdmin(request);
 
         const { id } = request.params;
-        const { title, description } = request.payload;
-        const photo = request.payload.photo;
+        const { title } = request.payload;
 
         const pancaIndra = await PancaIndra.findOne({ id });
         if (!pancaIndra) {
@@ -80,35 +60,12 @@ const updatePancaIndraHandler = async (request, h) => {
             }).code(404);
         }
 
-        let imageUrl = pancaIndra.imageUrl;
-
-        if (photo) {
-            const originalFileName = photo.hapi ? photo.hapi.filename : photo.filename;
-            const filename = `${Date.now()}-${originalFileName}`;
-            const allowedExtensions = ['.jpg', '.jpeg', '.png'];
-            const fileExt = path.extname(originalFileName).toLowerCase();
-
-            if (!allowedExtensions.includes(fileExt)) {
-                return h.response({
-                    error: true,
-                    message: 'Format file tidak valid. Gunakan JPG, JPEG, atau PNG'
-                }).code(400);
-            }
-
-            // Hapus file lama
-            await deleteFile(pancaIndra.imageUrl);
-
-            imageUrl = await saveFile(photo, filename);
-        }
-
         const updatedAt = new Date().toISOString();
 
         await PancaIndra.updateOne(
             { id },
             {
                 title,
-                description,
-                imageUrl,
                 updatedAt,
             }
         );
@@ -142,9 +99,6 @@ const deletePancaIndraHandler = async (request, h) => {
             }).code(404);
         }
 
-        // Hapus file gambar
-        await deleteFile(pancaIndra.imageUrl);
-
         await PancaIndra.deleteOne({ id });
 
         return h.response({
@@ -160,13 +114,34 @@ const deletePancaIndraHandler = async (request, h) => {
 };
 
 /**
- * Get all panca indras
+ * Get all panca indras with all senses
  */
 const getPancaIndraHandler = async (request, h) => {
     try {
-        // Fetch data and convert to plain objects
-        const pancaIndraData = await PancaIndra.find({}).lean();
-        const pancaIndra = JSON.parse(JSON.stringify(pancaIndraData));
+        // Fetch main panca indra data
+        const pancaIndraData = await PancaIndra.findOne({}).lean() || {
+            id: nanoid(16),
+            title: "Panca Indra",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Fetch data for each sense
+        const peraba = await Peraba.findOne({}).lean() || null;
+        const penciuman = await Penciuman.findOne({}).lean() || null;
+        const pendengaran = await Pendengaran.findOne({}).lean() || null;
+        const penglihatan = await Penglihatan.findOne({}).lean() || null;
+        const pengecapan = await Pengecapan.findOne({}).lean() || null;
+
+        // Combine all data
+        const pancaIndra = {
+            ...pancaIndraData,
+            peraba,
+            penciuman,
+            pendengaran,
+            penglihatan,
+            pengecapan
+        };
 
         return h.response({
             error: false,
@@ -184,7 +159,7 @@ const getPancaIndraHandler = async (request, h) => {
 };
 
 /**
- * Get a panca indra by ID
+ * Get a panca indra by ID with all senses
  */
 const getPancaIndraByIdHandler = async (request, h) => {
     try {
@@ -198,8 +173,22 @@ const getPancaIndraByIdHandler = async (request, h) => {
             }).code(404);
         }
 
-        // Convert to plain object
-        const pancaIndra = JSON.parse(JSON.stringify(pancaIndraData));
+        // Fetch data for each sense
+        const peraba = await Peraba.findOne({}).lean() || null;
+        const penciuman = await Penciuman.findOne({}).lean() || null;
+        const pendengaran = await Pendengaran.findOne({}).lean() || null;
+        const penglihatan = await Penglihatan.findOne({}).lean() || null;
+        const pengecapan = await Pengecapan.findOne({}).lean() || null;
+
+        // Combine all data
+        const pancaIndra = {
+            ...pancaIndraData,
+            peraba,
+            penciuman,
+            pendengaran,
+            penglihatan,
+            pengecapan
+        };
 
         return h.response({
             error: false,

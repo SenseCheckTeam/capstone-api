@@ -1,19 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const articleSchema = new Schema({
+const partnerSchema = new Schema({
   id: {
     type: String,
     required: true,
     unique: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
   },
   imageUrl: {
     type: String,
@@ -29,6 +21,6 @@ const articleSchema = new Schema({
   },
 });
 
-const Article = mongoose.model('Article', articleSchema);
+const Partner = mongoose.model('Partner', partnerSchema);
 
-module.exports = Article;
+module.exports = Partner;

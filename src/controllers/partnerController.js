@@ -1,17 +1,16 @@
 const { nanoid } = require("nanoid");
 const path = require('path');
-const { Article } = require('../models');
+const { Partner } = require('../models');
 const { verifyAdmin } = require('../middleware/auth');
 const { saveFile, deleteFile } = require('../utils/fileHandler');
 
 /**
- * Create a new article
+ * Create a new partner
  */
-const createArticleHandler = async (request, h) => {
+const createPartnerHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
-        const { title, content } = request.payload;
         const photo = request.payload.photo;
 
         if (!photo) {
@@ -39,10 +38,8 @@ const createArticleHandler = async (request, h) => {
         const createdAt = new Date().toISOString();
         const updatedAt = createdAt;
 
-        await Article.create({
+        await Partner.create({
             id,
-            title,
-            content,
             imageUrl,
             createdAt,
             updatedAt,
@@ -50,8 +47,8 @@ const createArticleHandler = async (request, h) => {
 
         return h.response({
             error: false,
-            message: 'Artikel berhasil ditambahkan',
-            data: { articleId: id }
+            message: 'Partner berhasil ditambahkan',
+            data: { partnerId: id }
         }).code(201);
     } catch (error) {
         return h.response({
@@ -62,25 +59,24 @@ const createArticleHandler = async (request, h) => {
 };
 
 /**
- * Update an existing article
+ * Update an existing partner
  */
-const updateArticleHandler = async (request, h) => {
+const updatePartnerHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
         const { id } = request.params;
-        const { title, content } = request.payload;
         const photo = request.payload.photo;
 
-        const article = await Article.findOne({ id });
-        if (!article) {
+        const partner = await Partner.findOne({ id });
+        if (!partner) {
             return h.response({
                 error: true,
-                message: 'Artikel tidak ditemukan'
+                message: 'Partner tidak ditemukan'
             }).code(404);
         }
 
-        let imageUrl = article.imageUrl;
+        let imageUrl = partner.imageUrl;
 
         if (photo) {
             const originalFileName = photo.hapi ? photo.hapi.filename : photo.filename;
@@ -96,18 +92,16 @@ const updateArticleHandler = async (request, h) => {
             }
 
             // Hapus file lama
-            await deleteFile(article.imageUrl);
+            await deleteFile(partner.imageUrl);
 
             imageUrl = await saveFile(photo, filename);
         }
 
         const updatedAt = new Date().toISOString();
 
-        await Article.updateOne(
+        await Partner.updateOne(
             { id },
             {
-                title,
-                content,
                 imageUrl,
                 updatedAt,
             }
@@ -115,7 +109,7 @@ const updateArticleHandler = async (request, h) => {
 
         return h.response({
             error: false,
-            message: 'Artikel berhasil diperbarui'
+            message: 'Partner berhasil diperbarui'
         }).code(200);
     } catch (error) {
         return h.response({
@@ -126,30 +120,30 @@ const updateArticleHandler = async (request, h) => {
 };
 
 /**
- * Delete an article
+ * Delete a partner
  */
-const deleteArticleHandler = async (request, h) => {
+const deletePartnerHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
         const { id } = request.params;
-        const article = await Article.findOne({ id });
+        const partner = await Partner.findOne({ id });
 
-        if (!article) {
+        if (!partner) {
             return h.response({
                 error: true,
-                message: 'Artikel tidak ditemukan'
+                message: 'Partner tidak ditemukan'
             }).code(404);
         }
 
         // Hapus file gambar
-        await deleteFile(article.imageUrl);
+        await deleteFile(partner.imageUrl);
 
-        await Article.deleteOne({ id });
+        await Partner.deleteOne({ id });
 
         return h.response({
             error: false,
-            message: 'Artikel berhasil dihapus'
+            message: 'Partner berhasil dihapus'
         }).code(200);
     } catch (error) {
         return h.response({
@@ -160,18 +154,18 @@ const deleteArticleHandler = async (request, h) => {
 };
 
 /**
- * Get all articles
+ * Get all partners
  */
-const getArticlesHandler = async (request, h) => {
+const getPartnerHandler = async (request, h) => {
     try {
-        const articles = await Article.find({});
+        const partners = await Partner.find({});
         return h.response({
             error: false,
             message: 'success',
-            data: articles
+            data: partners
         }).code(200);
     } catch (error) {
-        console.error('Error getting articles:', error);
+        console.error('Error getting partners:', error);
         return h.response({
             error: true,
             message: 'Terjadi kesalahan pada server'
@@ -180,27 +174,27 @@ const getArticlesHandler = async (request, h) => {
 };
 
 /**
- * Get an article by ID
+ * Get a partner by ID
  */
-const getArticleByIdHandler = async (request, h) => {
+const getPartnerByIdHandler = async (request, h) => {
     try {
         const { id } = request.params;
-        const article = await Article.findOne({ id });
+        const partner = await Partner.findOne({ id });
 
-        if (!article) {
+        if (!partner) {
             return h.response({
                 error: true,
-                message: 'Artikel tidak ditemukan'
+                message: 'Partner tidak ditemukan'
             }).code(404);
         }
 
         return h.response({
             error: false,
             message: 'success',
-            data: article
+            data: partner
         }).code(200);
     } catch (error) {
-        console.error('Error getting article by id:', error);
+        console.error('Error getting partner by id:', error);
         return h.response({
             error: true,
             message: 'Terjadi kesalahan pada server'
@@ -209,9 +203,9 @@ const getArticleByIdHandler = async (request, h) => {
 };
 
 module.exports = {
-    createArticleHandler,
-    updateArticleHandler,
-    deleteArticleHandler,
-    getArticlesHandler,
-    getArticleByIdHandler
+    createPartnerHandler,
+    updatePartnerHandler,
+    deletePartnerHandler,
+    getPartnerHandler,
+    getPartnerByIdHandler
 };

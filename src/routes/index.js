@@ -2,10 +2,16 @@ const userRoutes = require('./userRoutes');
 const adminRoutes = require('./adminRoutes');
 const homeRoutes = require('./homeRoutes');
 const sliderRoutes = require('./sliderRoutes');
-const articleRoutes = require('./articleRoutes');
 const pancaIndraRoutes = require('./pancaIndraRoutes');
-const tentangAplikasiRoutes = require('./tentangAplikasiRoutes');
+const aboutRoutes = require('./aboutRoutes');
 const staticRoutes = require('./staticRoutes');
+const perabaRoutes = require('./perabaRoutes');
+const penciumanRoutes = require('./penciumanRoutes');
+const pendengaranRoutes = require('./pendengaranRoutes');
+const penglihatanRoutes = require('./penglihatanRoutes');
+const pengecapanRoutes = require('./pengecapanRoutes');
+const partnerGroupRoutes = require('./partnerGroupRoutes');
+const partnerRoutes = require('./partnerRoutes');
 
 // Combine all routes
 const routes = [
@@ -13,10 +19,16 @@ const routes = [
     ...adminRoutes,
     ...homeRoutes,
     ...sliderRoutes,
-    ...articleRoutes,
     ...pancaIndraRoutes,
-    ...tentangAplikasiRoutes,
-    ...staticRoutes
+    ...aboutRoutes,
+    ...staticRoutes,
+    ...perabaRoutes,
+    ...penciumanRoutes,
+    ...pendengaranRoutes,
+    ...penglihatanRoutes,
+    ...pengecapanRoutes,
+    ...partnerGroupRoutes,
+    ...partnerRoutes
 ];
 
 module.exports = routes;
