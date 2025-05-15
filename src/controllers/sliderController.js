@@ -11,7 +11,6 @@ const createSliderHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
-        const { title, description } = request.payload;
         const photo = request.payload.photo;
 
         if (!photo) {
@@ -41,8 +40,6 @@ const createSliderHandler = async (request, h) => {
 
         await Slider.create({
             id,
-            title,
-            description,
             imageUrl,
             createdAt,
             updatedAt,
@@ -69,7 +66,6 @@ const updateSliderHandler = async (request, h) => {
         verifyAdmin(request);
 
         const { id } = request.params;
-        const { title, description } = request.payload;
         const photo = request.payload.photo;
 
         const slider = await Slider.findOne({ id });
@@ -106,8 +102,6 @@ const updateSliderHandler = async (request, h) => {
         await Slider.updateOne(
             { id },
             {
-                title,
-                description,
                 imageUrl,
                 updatedAt,
             }

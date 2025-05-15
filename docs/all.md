@@ -86,8 +86,6 @@
   "data": [
     {
       "id": "slider-id",
-      "title": "Slider Title",
-      "description": "Slider Description",
       "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
       "createdAt": "2023-01-01T00:00:00.000Z",
       "updatedAt": "2023-01-01T00:00:00.000Z"
@@ -112,8 +110,6 @@
   "message": "success",
   "data": {
     "id": "slider-id",
-    "title": "Slider Title",
-    "description": "Slider Description",
     "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
@@ -131,8 +127,6 @@
   * Content-Type: multipart/form-data
   * Authorization: Bearer `<token>`
 * Request Body
-  * `title` as `string`
-  * `description` as `string`
   * `photo` as `file`, must be a valid image file (JPG, JPEG, or PNG)
 * Response
 
@@ -156,8 +150,6 @@
   * Content-Type: multipart/form-data
   * Authorization: Bearer `<token>`
 * Request Body
-  * `title` as `string`
-  * `description` as `string`
   * `photo` as `file`, optional, must be a valid image file (JPG, JPEG, or PNG)
 * Response
 
