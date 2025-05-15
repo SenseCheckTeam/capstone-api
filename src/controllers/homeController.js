@@ -1,4 +1,4 @@
-const { Slider, Article, PancaIndra, TentangAplikasi } = require('../models');
+const { Slider, PancaIndra, TentangAplikasi } = require('../models');
 
 /**
  * Get home page data
@@ -6,7 +6,6 @@ const { Slider, Article, PancaIndra, TentangAplikasi } = require('../models');
 const getHomeHandler = async (request, h) => {
     try {
         const sliders = await Slider.find({});
-        const articles = await Article.find({});
         const pancaIndras = await PancaIndra.find({});
         const tentangAplikasis = await TentangAplikasi.find({});
 
@@ -15,7 +14,6 @@ const getHomeHandler = async (request, h) => {
             message: 'success',
             data: {
                 sliders,
-                articles,
                 pancaIndras,
                 tentangAplikasis
             }

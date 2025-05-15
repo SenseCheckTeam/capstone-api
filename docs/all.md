@@ -1,6 +1,6 @@
 # Capstone API
 
-> **API untuk mengelola konten website, termasuk slider, artikel, panca indra, dan tentang aplikasi, dengan autentikasi pengguna dan admin.**
+> **API untuk mengelola konten website, termasuk slider, panca indra, dan tentang aplikasi, dengan autentikasi pengguna dan admin.**
 
 ## Endpoint
 
@@ -177,119 +177,7 @@
 }
 ```
 
-### Get All Articles
 
-* URL
-  * `/articles`
-* Method
-  * GET
-* Response
-
-```json
-{
-  "error": false,
-  "message": "success",
-  "data": [
-    {
-      "id": "article-id",
-      "title": "Article Title",
-      "content": "Article Content",
-      "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
-      "createdAt": "2023-01-01T00:00:00.000Z",
-      "updatedAt": "2023-01-01T00:00:00.000Z"
-    }
-  ]
-}
-```
-
-> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
-
-### Get Article by ID
-
-* URL
-  * `/articles/:id`
-* Method
-  * GET
-* Response
-
-```json
-{
-  "error": false,
-  "message": "success",
-  "data": {
-    "id": "article-id",
-    "title": "Article Title",
-    "content": "Article Content",
-    "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
-    "createdAt": "2023-01-01T00:00:00.000Z",
-    "updatedAt": "2023-01-01T00:00:00.000Z"
-  }
-}
-```
-
-### Create Article (Admin Only)
-
-* URL
-  * `/admin/articles`
-* Method
-  * POST
-* Headers
-  * Content-Type: multipart/form-data
-  * Authorization: Bearer `<token>`
-* Request Body
-  * `title` as `string`
-  * `content` as `string`
-  * `photo` as `file`, must be a valid image file (JPG, JPEG, or PNG)
-* Response
-
-```json
-{
-  "error": false,
-  "message": "Artikel berhasil ditambahkan",
-  "data": {
-    "articleId": "article-id"
-  }
-}
-```
-
-### Update Article (Admin Only)
-
-* URL
-  * `/admin/articles/:id`
-* Method
-  * PUT
-* Headers
-  * Content-Type: multipart/form-data
-  * Authorization: Bearer `<token>`
-* Request Body
-  * `title` as `string`
-  * `content` as `string`
-  * `photo` as `file`, optional, must be a valid image file (JPG, JPEG, or PNG)
-* Response
-
-```json
-{
-  "error": false,
-  "message": "Artikel berhasil diperbarui"
-}
-```
-
-### Delete Article (Admin Only)
-
-* URL
-  * `/admin/articles/:id`
-* Method
-  * DELETE
-* Headers
-  * Authorization: Bearer `<token>`
-* Response
-
-```json
-{
-  "error": false,
-  "message": "Artikel berhasil dihapus"
-}
-```
 
 ### Get All Panca Indra
 
@@ -531,7 +419,7 @@
 * Method
   * GET
 * Response
-  * Mengembalikan semua data dari slider, artikel, panca indra, dan tentang aplikasi dalam satu respons.
+  * Mengembalikan semua data dari slider, panca indra, dan tentang aplikasi dalam satu respons.
 
 ```json
 {
@@ -539,7 +427,6 @@
   "message": "success",
   "data": {
     "sliders": [...],
-    "articles": [...],
     "pancaIndras": [...],
     "tentangAplikasis": [...]
   }
