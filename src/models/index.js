@@ -8,6 +8,8 @@ const Penciuman = require('./Penciuman');
 const Pendengaran = require('./Pendengaran');
 const Penglihatan = require('./Penglihatan');
 const Pengecapan = require('./Pengecapan');
+const PartnerGroup = require('./PartnerGroup');
+const Partner = require('./Partner');
 
 module.exports = {
   User,
@@ -20,4 +22,6 @@ module.exports = {
   Pendengaran,
   Penglihatan,
   Pengecapan,
+  PartnerGroup,
+  Partner,
 };

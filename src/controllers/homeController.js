@@ -6,7 +6,9 @@ const {
     Penciuman,
     Pendengaran,
     Penglihatan,
-    Pengecapan
+    Pengecapan,
+    PartnerGroup,
+    Partner
 } = require('../models');
 
 /**
@@ -43,13 +45,31 @@ const getHomeHandler = async (request, h) => {
 
         const abouts = await About.find({});
 
+        // Fetch main partners data
+        const partnerGroupData = await PartnerGroup.findOne({}).lean() || {
+            id: "partners-001",
+            title: "Partners",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Fetch all partner entries
+        const partnerEntries = await Partner.find({}).lean() || [];
+
+        // Combine all partners data
+        const partners = {
+            ...partnerGroupData,
+            partner: partnerEntries
+        };
+
         return h.response({
             error: false,
             message: 'success',
             data: {
                 sliders,
                 abouts,
-                pancaIndra
+                pancaIndra,
+                partners
             }
         }).code(200);
     } catch (error) {

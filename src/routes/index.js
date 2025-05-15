@@ -10,6 +10,8 @@ const penciumanRoutes = require('./penciumanRoutes');
 const pendengaranRoutes = require('./pendengaranRoutes');
 const penglihatanRoutes = require('./penglihatanRoutes');
 const pengecapanRoutes = require('./pengecapanRoutes');
+const partnerGroupRoutes = require('./partnerGroupRoutes');
+const partnerRoutes = require('./partnerRoutes');
 
 // Combine all routes
 const routes = [
@@ -24,7 +26,9 @@ const routes = [
     ...penciumanRoutes,
     ...pendengaranRoutes,
     ...penglihatanRoutes,
-    ...pengecapanRoutes
+    ...pengecapanRoutes,
+    ...partnerGroupRoutes,
+    ...partnerRoutes
 ];
 
 module.exports = routes;
