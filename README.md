@@ -4,7 +4,7 @@ This is the API for the Capstone project. It provides endpoints for managing use
 
 ## Documentation
 
-The API documentation is available at [https://capstone-api-peach.vercel.app/docs](https://capstone-api-peach.vercel.app/).
+The API documentation is available at [http://localhost:5000/docs](http://localhost:5000/docs).
 
 To run the documentation locally:
 
@@ -48,21 +48,13 @@ To run the API in production mode:
 npm run start:prod
 ```
 
-## Deployment to Vercel
+## Setting up Cloudinary for Image Storage
 
-This API can be deployed to Vercel. However, since Vercel has a read-only filesystem, you need to configure Cloudinary for file uploads.
-
-### Setting up Cloudinary
+This API uses Cloudinary for all image storage. Follow these steps to set it up:
 
 1. Create a Cloudinary account at [https://cloudinary.com/](https://cloudinary.com/)
 2. Get your Cloudinary credentials (Cloud Name, API Key, and API Secret)
-3. Install the Cloudinary package:
-
-```bash
-npm install cloudinary
-```
-
-4. Add your Cloudinary credentials to your environment variables:
+3. Add your Cloudinary credentials to your environment variables:
 
 In your `.env` file:
 
@@ -72,25 +64,4 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-
-### Using Cloudinary in All Environments
-
-The application is now configured to use Cloudinary for file storage in all environments (both local development and Vercel). This ensures consistent behavior and makes it easier to test the application locally before deploying to Vercel.
-
-To use Cloudinary:
-
-1. Make sure you have installed the Cloudinary package:
-
-```bash
-npm install cloudinary
-```
-
-2. Ensure your environment variables are set up correctly in `.env`:
-
-```
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
-
-3. If you want to disable Cloudinary in local development and use local file storage instead, you can modify the `useCloudinaryAlways` variable in `src/utils/fileHandler.js` to `false`.
+The application is configured to use Cloudinary for all file storage. Make sure your Cloudinary credentials are set up correctly before running the application.

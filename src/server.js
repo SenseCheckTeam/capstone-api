@@ -2,7 +2,6 @@ require("dotenv").config();
 const Hapi = require("@hapi/hapi");
 const Inert = require("@hapi/inert");
 const Path = require("path");
-const fs = require("fs");
 const routes = require("./routes/index");
 const db = require("./database");
 const { Admin } = require("./models");
@@ -10,44 +9,7 @@ const { Admin } = require("./models");
 // Define server variable in global scope
 let server;
 
-// Fungsi untuk menghapus semua file di folder uploads
-const clearUploadsFolder = () => {
-  try {
-    const uploadsDir = Path.join(__dirname, "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      console.log("Uploads directory does not exist, skipping cleanup");
-      return;
-    }
-
-    fs.readdir(uploadsDir, (err, files) => {
-      if (err) {
-        console.error("Error reading uploads directory:", err);
-        return;
-      }
-
-      files.forEach((file) => {
-        // Skip .gitkeep file
-        if (file === ".gitkeep") return;
-
-        const filePath = Path.join(uploadsDir, file);
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error("Error deleting file:", filePath, err);
-            return;
-          }
-          console.log("Deleted file:", filePath);
-        });
-      });
-    });
-  } catch (error) {
-    console.error("Error in clearUploadsFolder:", error);
-  }
-};
-
 const init = async () => {
-  // Comment out the line below to prevent clearing uploads folder on server start
-  clearUploadsFolder();
-
   // Initialize MongoDB connection
   try {
     await db.connectToDatabase();
@@ -75,7 +37,7 @@ const init = async () => {
 
   server = Hapi.server({
     port: process.env.PORT || 5000,
-    host: "0.0.0.0",
+    host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
     routes: {
       cors: {
         origin: ["*"],

@@ -4,7 +4,7 @@
 
 ## Endpoint
 
-<div class="api-endpoint">https://capstone-api-peach.vercel.app</div>
+<div class="api-endpoint">http://localhost:5000</div>
 
 ### Register
 
@@ -96,7 +96,7 @@
 }
 ```
 
-> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary jika gambar disimpan di Cloudinary, atau path lokal jika gambar disimpan secara lokal.
+> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
 
 ### Get Slider by ID
 
@@ -114,7 +114,7 @@
     "id": "slider-id",
     "title": "Slider Title",
     "description": "Slider Description",
-    "imageUrl": "/uploads/image.jpg",
+    "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   }
@@ -210,7 +210,7 @@
 }
 ```
 
-> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary jika gambar disimpan di Cloudinary, atau path lokal jika gambar disimpan secara lokal.
+> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
 
 ### Get Article by ID
 
@@ -228,7 +228,7 @@
     "id": "article-id",
     "title": "Article Title",
     "content": "Article Content",
-    "imageUrl": "/uploads/image.jpg",
+    "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   }
@@ -324,7 +324,7 @@
 }
 ```
 
-> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary jika gambar disimpan di Cloudinary, atau path lokal jika gambar disimpan secara lokal.
+> **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
 
 ### Get Panca Indra by ID
 
@@ -342,7 +342,7 @@
     "id": "panca-indra-id",
     "title": "Panca Indra Title",
     "description": "Panca Indra Description",
-    "imageUrl": "/uploads/image.jpg",
+    "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   }
@@ -524,17 +524,12 @@
 ### Access Uploaded Files
 
 * URL
-
-  * `/uploads/:filename` (untuk file yang disimpan secara lokal)
-  * URL Cloudinary (untuk file yang disimpan di Cloudinary)
+  * URL Cloudinary
 * Method
-
   * GET
 * Response
-
   * The image file if it exists, or a 404 error if the file does not exist.
-* Example (Cloudinary)
-
+* Example
   * <div class="api-endpoint">https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/1744863672764-logo</div>
 
 ## Home Endpoint
