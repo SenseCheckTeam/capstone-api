@@ -1,13 +1,13 @@
 const { nanoid } = require("nanoid");
 const path = require('path');
-const { About } = require('../models');
+const { Hero } = require('../models');
 const { verifyAdmin } = require('../middleware/auth');
 const { saveFile, deleteFile } = require('../utils/fileHandler');
 
 /**
- * Create a new about
+ * Create a new hero
  */
-const createAboutHandler = async (request, h) => {
+const createHeroHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
@@ -39,7 +39,7 @@ const createAboutHandler = async (request, h) => {
         const createdAt = new Date().toISOString();
         const updatedAt = createdAt;
 
-        await About.create({
+        await Hero.create({
             id,
             title,
             description,
@@ -52,8 +52,8 @@ const createAboutHandler = async (request, h) => {
 
         return h.response({
             error: false,
-            message: 'About berhasil ditambahkan',
-            data: { aboutId: id }
+            message: 'Hero berhasil ditambahkan',
+            data: { heroId: id }
         }).code(201);
     } catch (error) {
         return h.response({
@@ -64,9 +64,9 @@ const createAboutHandler = async (request, h) => {
 };
 
 /**
- * Update an existing about
+ * Update an existing hero
  */
-const updateAboutHandler = async (request, h) => {
+const updateHeroHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
@@ -74,15 +74,15 @@ const updateAboutHandler = async (request, h) => {
         const { title, description, textButton, buttonUrl } = request.payload;
         const photo = request.payload.photo;
 
-        const about = await About.findOne({ id });
-        if (!about) {
+        const hero = await Hero.findOne({ id });
+        if (!hero) {
             return h.response({
                 error: true,
-                message: 'About tidak ditemukan'
+                message: 'Hero tidak ditemukan'
             }).code(404);
         }
 
-        let imageUrl = about.imageUrl;
+        let imageUrl = hero.imageUrl;
 
         if (photo) {
             const originalFileName = photo.hapi ? photo.hapi.filename : photo.filename;
@@ -98,14 +98,14 @@ const updateAboutHandler = async (request, h) => {
             }
 
             // Hapus file lama
-            await deleteFile(about.imageUrl);
+            await deleteFile(hero.imageUrl);
 
             imageUrl = await saveFile(photo, filename);
         }
 
         const updatedAt = new Date().toISOString();
 
-        await About.updateOne(
+        await Hero.updateOne(
             { id },
             {
                 title,
@@ -119,7 +119,7 @@ const updateAboutHandler = async (request, h) => {
 
         return h.response({
             error: false,
-            message: 'About berhasil diperbarui'
+            message: 'Hero berhasil diperbarui'
         }).code(200);
     } catch (error) {
         return h.response({
@@ -130,30 +130,30 @@ const updateAboutHandler = async (request, h) => {
 };
 
 /**
- * Delete an about
+ * Delete an hero
  */
-const deleteAboutHandler = async (request, h) => {
+const deleteHeroHandler = async (request, h) => {
     try {
         verifyAdmin(request);
 
         const { id } = request.params;
-        const about = await About.findOne({ id });
+        const hero = await Hero.findOne({ id });
 
-        if (!about) {
+        if (!hero) {
             return h.response({
                 error: true,
-                message: 'About tidak ditemukan'
+                message: 'Hero tidak ditemukan'
             }).code(404);
         }
 
         // Hapus file gambar
-        await deleteFile(about.imageUrl);
+        await deleteFile(hero.imageUrl);
 
-        await About.deleteOne({ id });
+        await Hero.deleteOne({ id });
 
         return h.response({
             error: false,
-            message: 'About berhasil dihapus'
+            message: 'Hero berhasil dihapus'
         }).code(200);
     } catch (error) {
         return h.response({
@@ -164,18 +164,18 @@ const deleteAboutHandler = async (request, h) => {
 };
 
 /**
- * Get all abouts
+ * Get all heros
  */
-const getAboutsHandler = async (request, h) => {
+const getHerosHandler = async (request, h) => {
     try {
-        const abouts = await About.find({});
+        const heros = await Hero.find({});
         return h.response({
             error: false,
             message: 'success',
-            data: abouts
+            data: heros
         }).code(200);
     } catch (error) {
-        console.error('Error getting abouts:', error);
+        console.error('Error getting heros:', error);
         return h.response({
             error: true,
             message: 'Terjadi kesalahan pada server'
@@ -184,27 +184,27 @@ const getAboutsHandler = async (request, h) => {
 };
 
 /**
- * Get an about by ID
+ * Get an hero by ID
  */
-const getAboutByIdHandler = async (request, h) => {
+const getHeroByIdHandler = async (request, h) => {
     try {
         const { id } = request.params;
-        const about = await About.findOne({ id });
+        const hero = await Hero.findOne({ id });
 
-        if (!about) {
+        if (!hero) {
             return h.response({
                 error: true,
-                message: 'About tidak ditemukan'
+                message: 'Hero tidak ditemukan'
             }).code(404);
         }
 
         return h.response({
             error: false,
             message: 'success',
-            data: about
+            data: hero
         }).code(200);
     } catch (error) {
-        console.error('Error getting about by id:', error);
+        console.error('Error getting hero by id:', error);
         return h.response({
             error: true,
             message: 'Terjadi kesalahan pada server'
@@ -213,9 +213,9 @@ const getAboutByIdHandler = async (request, h) => {
 };
 
 module.exports = {
-    createAboutHandler,
-    updateAboutHandler,
-    deleteAboutHandler,
-    getAboutsHandler,
-    getAboutByIdHandler
+    createHeroHandler,
+    updateHeroHandler,
+    deleteHeroHandler,
+    getHerosHandler,
+    getHeroByIdHandler
 };

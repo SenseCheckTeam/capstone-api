@@ -1,6 +1,6 @@
 # Capstone API
 
-> **API untuk mengelola konten website, termasuk slider, panca indra, about, dan partners, dengan autentikasi pengguna dan admin.**
+> **API untuk mengelola konten website, termasuk slider, panca indra, hero, dan partners, dengan autentikasi pengguna dan admin.**
 
 ## Endpoint
 
@@ -177,10 +177,10 @@
 }
 ```
 
-### Get All About
+### Get All Hero
 
 * URL
-  * `/about`
+  * `/hero`
 * Method
   * GET
 * Response
@@ -191,9 +191,9 @@
   "message": "success",
   "data": [
     {
-      "id": "about-id",
-      "title": "About Title",
-      "description": "About Description",
+      "id": "hero-id",
+      "title": "Hero Title",
+      "description": "Hero Description",
       "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
       "textButton": "Learn More",
       "buttonUrl": "https://example.com",
@@ -206,10 +206,10 @@
 
 > **Catatan**: Field `imageUrl` akan berisi URL Cloudinary untuk gambar yang diupload.
 
-### Get About by ID
+### Get Hero by ID
 
 * URL
-  * `/about/:id`
+  * `/hero/:id`
 * Method
   * GET
 * Response
@@ -219,9 +219,9 @@
   "error": false,
   "message": "success",
   "data": {
-    "id": "about-id",
-    "title": "About Title",
-    "description": "About Description",
+    "id": "hero-id",
+    "title": "Hero Title",
+    "description": "Hero Description",
     "imageUrl": "https://res.cloudinary.com/djgglqc1h/image/upload/v1234567890/capstone-api/image",
     "textButton": "Learn More",
     "buttonUrl": "https://example.com",
@@ -231,10 +231,10 @@
 }
 ```
 
-### Create About (Admin Only)
+### Create Hero (Admin Only)
 
 * URL
-  * `/admin/about`
+  * `/admin/hero`
 * Method
   * POST
 * Headers
@@ -251,17 +251,17 @@
 ```json
 {
   "error": false,
-  "message": "About berhasil ditambahkan",
+  "message": "Hero berhasil ditambahkan",
   "data": {
-    "aboutId": "about-id"
+    "heroId": "hero-id"
   }
 }
 ```
 
-### Update About (Admin Only)
+### Update Hero (Admin Only)
 
 * URL
-  * `/admin/about/:id`
+  * `/admin/hero/:id`
 * Method
   * PUT
 * Headers
@@ -278,14 +278,14 @@
 ```json
 {
   "error": false,
-  "message": "About berhasil diperbarui"
+  "message": "Hero berhasil diperbarui"
 }
 ```
 
-### Delete About (Admin Only)
+### Delete Hero (Admin Only)
 
 * URL
-  * `/admin/about/:id`
+  * `/admin/hero/:id`
 * Method
   * DELETE
 * Headers
@@ -295,7 +295,7 @@
 ```json
 {
   "error": false,
-  "message": "About berhasil dihapus"
+  "message": "Hero berhasil dihapus"
 }
 ```
 
@@ -858,7 +858,7 @@
 * Method
   * GET
 * Response
-  * Mengembalikan semua data dari slider, panca indra, about, dan partners dalam satu respons.
+  * Mengembalikan semua data dari slider, panca indra, hero, dan partners dalam satu respons.
 
 ```json
 {
@@ -887,7 +887,7 @@
       "penglihatan": {...},
       "pengecapan": {...}
     },
-    "abouts": [...],
+    "heros": [...],
     "partners": {
       "id": "partners-id",
       "title": "Partners",

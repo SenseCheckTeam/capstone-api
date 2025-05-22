@@ -3,7 +3,7 @@ const adminRoutes = require('./adminRoutes');
 const homeRoutes = require('./homeRoutes');
 const sliderRoutes = require('./sliderRoutes');
 const pancaIndraRoutes = require('./pancaIndraRoutes');
-const aboutRoutes = require('./aboutRoutes');
+const heroRoutes = require('./heroRoutes');
 const staticRoutes = require('./staticRoutes');
 const perabaRoutes = require('./perabaRoutes');
 const penciumanRoutes = require('./penciumanRoutes');
@@ -20,7 +20,7 @@ const routes = [
     ...homeRoutes,
     ...sliderRoutes,
     ...pancaIndraRoutes,
-    ...aboutRoutes,
+    ...heroRoutes,
     ...staticRoutes,
     ...perabaRoutes,
     ...penciumanRoutes,

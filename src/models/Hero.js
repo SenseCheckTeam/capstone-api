@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const aboutSchema = new Schema({
+const heroSchema = new Schema({
   id: {
     type: String,
     required: true,
@@ -37,6 +37,6 @@ const aboutSchema = new Schema({
   },
 });
 
-const About = mongoose.model('About', aboutSchema);
+const Hero = mongoose.model('Hero', heroSchema);
 
-module.exports = About;
+module.exports = Hero;

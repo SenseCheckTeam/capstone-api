@@ -1,6 +1,6 @@
 # Capstone API
 
-This is the API for the Capstone project. It provides endpoints for managing users, sliders, panca indra, and about.
+This is the API for the Capstone project. It provides endpoints for managing users, sliders, panca indra, and hero.
 
 ## Documentation
 
@@ -23,11 +23,11 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 - `/sliders/{id}` - Get a slider by ID
 - `/panca-indra` - Get all panca indra items
 - `/panca-indra/{id}` - Get a panca indra item by ID
-- `/about` - Get all about items
-- `/about/{id}` - Get an about item by ID
+- `/hero` - Get all hero items
+- `/hero/{id}` - Get an hero item by ID
 - `/admin/sliders` - Create, update, and delete sliders (admin only)
 - `/admin/panca-indra` - Create, update, and delete panca indra items (admin only)
-- `/admin/about` - Create, update, and delete about items (admin only)
+- `/admin/hero` - Create, update, and delete hero items (admin only)
 
 For more details, see the [API documentation](http://13.215.253.107:5000/v1).
 

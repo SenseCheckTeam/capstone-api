@@ -1,27 +1,27 @@
 const {
-    createAboutHandler,
-    updateAboutHandler,
-    deleteAboutHandler,
-    getAboutsHandler,
-    getAboutByIdHandler
-} = require('../controllers/aboutController');
+    createHeroHandler,
+    updateHeroHandler,
+    deleteHeroHandler,
+    getHerosHandler,
+    getHeroByIdHandler
+} = require('../controllers/heroController');
 
-const aboutRoutes = [
+const heroRoutes = [
     // Public routes
     {
         method: "GET",
-        path: "/about",
-        handler: getAboutsHandler,
+        path: "/hero",
+        handler: getHerosHandler,
     },
     {
         method: "GET",
-        path: "/about/{id}",
-        handler: getAboutByIdHandler,
+        path: "/hero/{id}",
+        handler: getHeroByIdHandler,
     },
     // Admin routes
     {
         method: "POST",
-        path: "/admin/about",
+        path: "/admin/hero",
         options: {
             payload: {
                 allow: ["multipart/form-data"],
@@ -32,11 +32,11 @@ const aboutRoutes = [
                 maxBytes: 2000000,
             }
         },
-        handler: createAboutHandler,
+        handler: createHeroHandler,
     },
     {
         method: "PUT",
-        path: "/admin/about/{id}",
+        path: "/admin/hero/{id}",
         options: {
             payload: {
                 allow: ["multipart/form-data"],
@@ -47,13 +47,13 @@ const aboutRoutes = [
                 maxBytes: 2000000,
             }
         },
-        handler: updateAboutHandler,
+        handler: updateHeroHandler,
     },
     {
         method: "DELETE",
-        path: "/admin/about/{id}",
-        handler: deleteAboutHandler,
+        path: "/admin/hero/{id}",
+        handler: deleteHeroHandler,
     }
 ];
 
-module.exports = aboutRoutes;
+module.exports = heroRoutes;

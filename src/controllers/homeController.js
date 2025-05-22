@@ -1,7 +1,7 @@
 const {
     Slider,
     PancaIndra,
-    About,
+    Hero,
     Peraba,
     Penciuman,
     Pendengaran,
@@ -43,7 +43,7 @@ const getHomeHandler = async (request, h) => {
             pengecapan
         };
 
-        const abouts = await About.find({});
+        const heros = await Hero.find({});
 
         // Fetch main partners data
         const partnerGroupData = await PartnerGroup.findOne({}).lean() || {
@@ -67,7 +67,7 @@ const getHomeHandler = async (request, h) => {
             message: 'success',
             data: {
                 sliders,
-                abouts,
+                heros,
                 pancaIndra,
                 partners
             }

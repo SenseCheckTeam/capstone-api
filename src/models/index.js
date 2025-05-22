@@ -2,7 +2,7 @@ const User = require('./User');
 const Admin = require('./Admin');
 const Slider = require('./Slider');
 const PancaIndra = require('./PancaIndra');
-const About = require('./About');
+const Hero = require('./Hero');
 const Peraba = require('./Peraba');
 const Penciuman = require('./Penciuman');
 const Pendengaran = require('./Pendengaran');
@@ -16,7 +16,7 @@ module.exports = {
   Admin,
   Slider,
   PancaIndra,
-  About,
+  Hero,
   Peraba,
   Penciuman,
   Pendengaran,
