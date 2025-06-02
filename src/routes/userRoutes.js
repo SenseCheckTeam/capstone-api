@@ -1,4 +1,5 @@
-const { registerHandler, loginHandler } = require('../controllers/userController');
+const { registerHandler, loginHandler, updateUserHandler } = require('../controllers/userController');
+const { verifyUser } = require('../middleware/auth');
 
 const userRoutes = [
     {
@@ -10,6 +11,21 @@ const userRoutes = [
         method: "POST",
         path: "/login",
         handler: loginHandler,
+    },
+    {
+        method: "PUT",
+        path: "/user/profile",
+        options: {
+            pre: [
+                {
+                    method: (request, h) => {
+                        verifyUser(request);
+                        return h.continue;
+                    }
+                }
+            ]
+        },
+        handler: updateUserHandler,
     }
 ];
 

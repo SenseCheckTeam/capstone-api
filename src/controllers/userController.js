@@ -126,7 +126,82 @@ const loginHandler = async (request, h) => {
     return response;
 };
 
+/**
+ * Handle user profile update
+ */
+const updateUserHandler = async (request, h) => {
+    try {
+        const { name, email, password } = request.payload;
+        const userId = request.auth.userId; // Dari middleware verifyUser
+
+        // Cari user berdasarkan ID
+        const user = await User.findOne({ id: userId });
+        if (!user) {
+            return h.response({
+                error: true,
+                message: "User tidak ditemukan"
+            }).code(404);
+        }
+
+        // Validasi email jika diubah
+        if (email && email !== user.email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return h.response({
+                    error: true,
+                    message: "Format email tidak valid"
+                }).code(400);
+            }
+
+            // Cek apakah email baru sudah digunakan user lain
+            const existingUser = await User.findOne({ email, id: { $ne: userId } });
+            if (existingUser) {
+                return h.response({
+                    error: true,
+                    message: "Email sudah digunakan"
+                }).code(400);
+            }
+        }
+
+        // Validasi password jika diubah
+        let hashedPassword = user.password;
+        if (password) {
+            if (password.length < 8) {
+                return h.response({
+                    error: true,
+                    message: "Password harus minimal 8 karakter"
+                }).code(400);
+            }
+            hashedPassword = await bcrypt.hash(password, 10);
+        }
+
+        const updatedAt = new Date().toISOString();
+
+        // Update user
+        await User.updateOne(
+            { id: userId },
+            {
+                name: name || user.name,
+                email: email || user.email,
+                password: hashedPassword,
+                updatedAt,
+            }
+        );
+
+        return h.response({
+            error: false,
+            message: "Profil berhasil diperbarui"
+        }).code(200);
+    } catch (error) {
+        return h.response({
+            error: true,
+            message: error.message
+        }).code(500);
+    }
+};
+
 module.exports = {
     registerHandler,
-    loginHandler
+    loginHandler,
+    updateUserHandler
 };
