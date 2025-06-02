@@ -213,10 +213,40 @@ const getPenyakitByNameHandler = async (request, h) => {
     }
 };
 
+/**
+ * Get penyakit by ID
+ */
+const getPenyakitByIdHandler = async (request, h) => {
+    try {
+        const { id } = request.params;
+        
+        const penyakit = await Penyakit.findOne({ id });
+
+        if (!penyakit) {
+            return h.response({
+                error: true,
+                message: 'Penyakit tidak ditemukan'
+            }).code(404);
+        }
+
+        return h.response({
+            error: false,
+            message: 'Data penyakit berhasil diambil',
+            data: penyakit
+        }).code(200);
+    } catch (error) {
+        console.error('Error getting penyakit by id:', error);
+        return h.response({
+            error: true,
+            message: 'Terjadi kesalahan pada server'
+        }).code(500);
+    }
+};
+
 module.exports = {
     createPenyakitHandler,
     updatePenyakitHandler,
     deletePenyakitHandler,
     getPenyakitHandler,
-    getPenyakitByNameHandler
+    getPenyakitByIdHandler
 };

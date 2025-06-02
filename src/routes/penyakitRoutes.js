@@ -3,7 +3,7 @@ const {
     updatePenyakitHandler,
     deletePenyakitHandler,
     getPenyakitHandler,
-    getPenyakitByNameHandler
+    getPenyakitByIdHandler
 } = require('../controllers/penyakitController');
 
 const penyakitRoutes = [
@@ -15,8 +15,8 @@ const penyakitRoutes = [
     },
     {
         method: "GET",
-        path: "/penyakit/{name}",
-        handler: getPenyakitByNameHandler,
+        path: "/penyakit/{id}",
+        handler: getPenyakitByIdHandler,
     },
     // Admin routes
     {
