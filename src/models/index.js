@@ -10,6 +10,7 @@ const Penglihatan = require('./Penglihatan');
 const Pengecapan = require('./Pengecapan');
 const PartnerGroup = require('./PartnerGroup');
 const Partner = require('./Partner');
+const Penyakit = require('./Penyakit');
 
 module.exports = {
   User,
@@ -24,4 +25,5 @@ module.exports = {
   Pengecapan,
   PartnerGroup,
   Partner,
+  Penyakit
 };
