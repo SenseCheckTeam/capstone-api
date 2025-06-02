@@ -46,7 +46,24 @@ const verifyAdmin = (request) => {
     }
 };
 
+const verifyUser = (request) => {
+    const token = request.headers.authorization?.replace('Bearer ', '');
+    
+    if (!token) {
+        throw new Error('Token tidak ditemukan');
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        request.auth = { userId: decoded.userId };
+        return decoded;
+    } catch (error) {
+        throw new Error('Token tidak valid');
+    }
+};
+
 module.exports = {
     verifyToken,
-    verifyAdmin
+    verifyAdmin,
+    verifyUser
 };

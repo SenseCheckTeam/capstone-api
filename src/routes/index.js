@@ -13,6 +13,7 @@ const pengecapanRoutes = require('./pengecapanRoutes');
 const partnerGroupRoutes = require('./partnerGroupRoutes');
 const partnerRoutes = require('./partnerRoutes');
 const penyakitRoutes = require('./penyakitRoutes');
+const diagnosaRoutes = require('./diagnosaRoutes');
 
 // Combine all routes
 const routes = [
@@ -30,7 +31,8 @@ const routes = [
     ...pengecapanRoutes,
     ...partnerGroupRoutes,
     ...partnerRoutes,
-    ...penyakitRoutes
+    ...penyakitRoutes,
+    ...diagnosaRoutes
 ];
 
 module.exports = routes;

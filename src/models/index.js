@@ -11,6 +11,7 @@ const Pengecapan = require('./Pengecapan');
 const PartnerGroup = require('./PartnerGroup');
 const Partner = require('./Partner');
 const Penyakit = require('./Penyakit');
+const Diagnosa = require('./Diagnosa');
 
 module.exports = {
   User,
@@ -25,5 +26,6 @@ module.exports = {
   Pengecapan,
   PartnerGroup,
   Partner,
-  Penyakit
+  Penyakit,
+  Diagnosa
 };
